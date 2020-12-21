@@ -12,8 +12,8 @@ var currentDay = $(".today")
 var holdingContainer = $(".container")
 var col
 var index = []
-
-var renderCalender = () => {
+//Rendering timeblocks
+var renderTimeBlocks = () => {
     for(i=0; i < workHours; i++){
         rowEl = $("<div>").attr("class","row");
         hourEl = $("<div>" + time[i] + "</div>").attr("class", "col-lg-1 hour");
@@ -33,6 +33,7 @@ var renderCalender = () => {
     }
     $(document).on("click", ".saveBtn", saveSchedule)
 }
+// Getting hours for time blocks
 var timeOfDay = () => {
     var formattedTime = []
     time = formattedTime
@@ -41,6 +42,32 @@ var timeOfDay = () => {
         formattedTime.push((moment().startOf("day").add(timePoint, "hours").format("HH:mm A")))
     }
 }
+var currentTime = () => {
+currentHour = moment().format("HH:mm A")
+var timeStamp = $("textarea").get()
+var getSchedule 
+
+timeStamp.forEach(timeSlot => {
+    var timeId = parseInt(timeSlot.id)
+    if(parseInt(currentHour) > timeId){
+        timeSlot.classList.value = ("description past")
+        getSchedule = localStorage.getItem(timeSlot.id)
+        timeSlot.value = getSchedule
+    }
+    else if(parseInt(currentHour) < timeId){
+        timeSlot.classList.value = ("description future")
+        getSchedule = localStorage.getItem(timeSlot.id)
+        timeSlot.value = getSchedule
+    }
+    else{
+        timeSlot.classList.value = ("description present")
+        getSchedule = localStorage.getItem(timeSlot.id)
+        timeSlot.value = getSchedule
+    }
+    
+});
+}
 timeOfDay()
-renderCalender()
+renderTimeBlocks()
+currentTime()
 
