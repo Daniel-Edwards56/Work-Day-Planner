@@ -1,10 +1,10 @@
+//displays the date at the top of the page
 $("#currentDay").text(moment().format('MMMM Do YYYY, h:mm:ss a'));
-
+//variables
 var currentHour
 var time=[]
 var hourEl
 var textAreaEl
-var saveEl
 var saveBtnEl
 var workHours = 9
 var rowEl
@@ -20,17 +20,16 @@ var renderTimeBlocks = () => {
         col = $("<div>").attr("class", "col-lg-10");
         textAreaEl =$("<textarea>").attr("value", "").attr("class", "description col-lg-10").attr("id",time[i]);
         index.push(textAreaEl.attr("id"));
-        // saveEl = $("<div>").attr("class", "col-lg-1");
         saveBtnEl = $("<button>").attr("class", "saveBtn col-lg-1").attr("id", time[i]).attr("type", "submit").text("Save")
         //Appending time blocks to html
         col.append(textAreaEl)
-        // saveEl.append(saveBtnEl)
         rowEl.append(hourEl)
         rowEl.append(col)
         rowEl.append(saveBtnEl)
         holdingContainer.append(rowEl)
 
     }
+    //event listener for save button click
     $(document).on("click", ".saveBtn", saveSchedule)
 }
 // Getting hours for time blocks
@@ -47,7 +46,7 @@ var currentTime = () => {
 currentHour = moment().format("HH:mm A")
 var timeStamp = $("textarea").get()
 var getSchedule 
-
+//if else statments to verify time block color changes
 timeStamp.forEach(timeSlot => {
     var timeId = parseInt(timeSlot.id)
     if(parseInt(currentHour) > timeId){
@@ -76,6 +75,7 @@ var input = $(this).parent().parent().find(".description", ['textarea'])[0].valu
     localStorage.setItem(time, input)
 
 }
+//calling functions to run intially
 timeOfDay()
 renderTimeBlocks()
 currentTime()
